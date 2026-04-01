@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ウィムジカルウォー 復活プロジェクト 計画書</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Yu Gothic', sans-serif; background: #f5f4f0; color: #1a1a18; line-height: 1.7; }
+  .page { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .hero { border-radius: 12px; border: 1px solid #e0dfd6; background: #eeede8; padding: 1.5rem 1.75rem; margin-bottom: 1.5rem; }
+  .hero-title { font-size: 22px; font-weight: 500; color: #1a1a18; margin-bottom: 0.4rem; }
+  .hero-sub { font-size: 14px; color: #5f5e5a; line-height: 1.6; }
+  .badges { margin-top: 8px; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 6px; margin-right: 6px; margin-top: 6px; }
+  .badge-blue { background: #E6F1FB; color: #0C447C; }
+  .badge-teal { background: #E1F5EE; color: #085041; }
+  .badge-amber { background: #FAEEDA; color: #633806; }
+  .badge-purple { background: #EEEDFE; color: #3C3489; }
+
+  .platform-row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .platform-chip { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: 6px; border: 1px solid #d3d1c7; background: #fff; color: #1a1a18; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; }
+  .platform-note { font-size: 12px; color: #5f5e5a; margin-top: 8px; line-height: 1.6; }
+
+  .section-label { font-size: 11px; font-weight: 500; color: #888780; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; margin-top: 1.75rem; }
+
+  .full-card { background: #fff; border: 1px solid #e0dfd6; border-radius: 12px; padding: 1rem 1.25rem; }
+
+  .progress-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .prog-label { font-size: 12px; color: #5f5e5a; margin-bottom: 4px; }
+  .prog-num { font-size: 22px; font-weight: 500; color: #1a1a18; }
+  .progress-bar { height: 6px; border-radius: 3px; background: #e0dfd6; margin-top: 6px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 3px; }
+  .prog-note { font-size: 12px; color: #888780; margin-top: 4px; }
+
+  .phase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .phase-card { background: #fff; border: 1px solid #e0dfd6; border-radius: 12px; padding: 1rem 1.25rem; }
+  .phase-head { display: flex; align-items: center; gap: 10px; margin-bottom: 0.6rem; }
+  .phase-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; flex-shrink: 0; }
+  .phase-name { font-size: 15px; font-weight: 500; color: #1a1a18; }
+  .phase-status { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 6px; margin-left: auto; flex-shrink: 0; }
+  .status-done { background: #E1F5EE; color: #085041; }
+  .status-wip { background: #FAEEDA; color: #633806; }
+  .status-todo { background: #F1EFE8; color: #444441; }
+  .status-new { background: #FCEBEB; color: #791F1F; }
+
+  .task-list { list-style: none; margin-top: 0.5rem; }
+  .task-list li { font-size: 13px; color: #5f5e5a; padding: 3px 0 3px 16px; position: relative; line-height: 1.5; }
+  .task-list li::before { content: "–"; position: absolute; left: 0; color: #888780; }
+  .task-list li.done { color: #b4b2a9; }
+  .task-list li.done::before { content: "✓"; color: #0F6E56; }
+  .task-list li.collab { color: #1a1a18; }
+  .task-list li.collab::before { content: "★"; color: #BA7517; }
+
+  .collab-section { background: #fff; border: 1px solid #e0dfd6; border-radius: 12px; padding: 1rem 1.25rem; margin-top: 0.75rem; }
+  .collab-row { display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start; }
+  .collab-row:last-child { margin-bottom: 0; }
+  .collab-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .collab-type { font-size: 13px; font-weight: 500; color: #1a1a18; }
+  .collab-desc { font-size: 12px; color: #5f5e5a; line-height: 1.5; margin-top: 2px; }
+
+  .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13px; }
+  .spec-label { color: #5f5e5a; }
+  .spec-val { color: #1a1a18; margin-top: 2px; }
+
+  .caption { font-size: 12px; color: #888780; margin-top: 1rem; }
+
+  @media (max-width: 600px) {
+    .phase-grid { grid-template-columns: 1fr; }
+    .progress-grid { grid-template-columns: 1fr; }
+    .spec-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-title">ウィムジカルウォー 復活プロジェクト</div>
+    <div class="hero-sub">終了したモバイルゲームを身内向けに再現するプロジェクト。タワーディフェンス＋陣地塗りのリアルタイムバトルゲーム。</div>
+    <div class="badges">
+      <span class="badge badge-blue">Unity 6.3 LTS</span>
+      <span class="badge badge-teal">Node.js + SQLite</span>
+      <span class="badge badge-amber">WebSocket 通信</span>
+      <span class="badge badge-purple">Oracle Cloud（予定）</span>
+    </div>
+    <div class="platform-row">
+      <div class="platform-chip"><div class="dot" style="background:#1D9E75;"></div>Android（先行開発中）</div>
+      <div class="platform-chip"><div class="dot" style="background:#378ADD;"></div>iOS（後続で対応予定）</div>
+    </div>
+    <div class="platform-note">Unity を使用しているため Android / iOS の両対応が可能。まず Android で完成させ、動作確認後に iOS 版をビルドする予定です。iPhone ユーザも全員遊べるようにすることがゴールです。</div>
+  </div>
+
+  <div class="section-label">プロジェクト全体の進捗</div>
+  <div class="full-card">
+    <div class="progress-grid">
+      <div>
+        <div class="prog-label">設計フェーズ</div>
+        <div class="prog-num">85%</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:85%; background:#1D9E75;"></div></div>
+        <div class="prog-note">仕様書6本 完成済み</div>
+      </div>
+      <div>
+        <div class="prog-label">サーバー実装</div>
+        <div class="prog-num">60%</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:60%; background:#378ADD;"></div></div>
+        <div class="prog-note">2人対戦テスト成功</div>
+      </div>
+      <div>
+        <div class="prog-label">クライアント実装</div>
+        <div class="prog-num">15%</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:15%; background:#BA7517;"></div></div>
+        <div class="prog-note">ログイン画面まで</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">作業フェーズ（★ = 協力してもらえる部分）</div>
+  <div class="phase-grid">
+
+    <div class="phase-card">
+      <div class="phase-head">
+        <div class="phase-num" style="background:#E1F5EE; color:#085041;">1</div>
+        <div class="phase-name">仕様定義・設計</div>
+        <div class="phase-status status-done">完了</div>
+      </div>
+      <ul class="task-list">
+        <li class="done">ゲーム仕様書 v0.13（フィールド・カード・戦闘ルール）</li>
+        <li class="done">画面設計書 v0.3（15画面）</li>
+        <li class="done">DB設計書 v0.4</li>
+        <li class="done">WebSocket通信仕様書 v0.2</li>
+        <li class="done">サーバー構成仕様書 v0.1</li>
+        <li class="done">Unityプロジェクト構成仕様書 v0.2</li>
+        <li class="collab">★ 元ゲームの動画・スクショから仕様の確認・補足</li>
+      </ul>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-head">
+        <div class="phase-num" style="background:#E6F1FB; color:#0C447C;">2</div>
+        <div class="phase-name">サーバー実装</div>
+        <div class="phase-status status-wip">進行中</div>
+      </div>
+      <ul class="task-list">
+        <li class="done">DB スキーマ・シードデータ</li>
+        <li class="done">認証 / 初期データ取得 API</li>
+        <li class="done">ルームマネージャー</li>
+        <li class="done">ゲームロジック（GameRoom / Field / Unit / ElixirManager）</li>
+        <li class="done">2人対戦 動作確認</li>
+        <li>カードマスターデータ整備（全カード情報入力）</li>
+        <li class="collab">★ カード名・パラメータの確認・補足（元ゲームの知識）</li>
+      </ul>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-head">
+        <div class="phase-num" style="background:#FAEEDA; color:#633806;">3</div>
+        <div class="phase-name">クライアント実装 (Unity)</div>
+        <div class="phase-status status-wip">進行中</div>
+      </div>
+      <ul class="task-list">
+        <li class="done">プロジェクト構成・スクリプト一式</li>
+        <li class="done">ログイン画面</li>
+        <li>タイトル画面</li>
+        <li>TOP（ホーム）画面</li>
+        <li>マッチング・ルーム画面</li>
+        <li>バトル画面（フィールド・カード・エリクサー）</li>
+        <li>試合結果画面</li>
+        <li>デッキ編集画面</li>
+        <li>キャラクター一覧・詳細画面</li>
+      </ul>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-head">
+        <div class="phase-num" style="background:#EEEDFE; color:#3C3489;">4</div>
+        <div class="phase-name">グラフィック・素材</div>
+        <div class="phase-status status-new">未着手</div>
+      </div>
+      <ul class="task-list">
+        <li class="collab">★ キャラクターイラスト（カード用・立ち絵）</li>
+        <li class="collab">★ タイトル画面の背景・キャラ立ち絵</li>
+        <li class="collab">★ スクショからのUI素材切り出し</li>
+        <li class="collab">★ タワー・施設の画像素材</li>
+        <li>フィールド・橋のタイルグラフィック</li>
+        <li>エフェクト（陣地塗り・攻撃・爆発）</li>
+        <li>UIパーツ（ボタン・枠・背景）</li>
+      </ul>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-head">
+        <div class="phase-num" style="background:#EAF3DE; color:#27500A;">5</div>
+        <div class="phase-name">テスト・調整</div>
+        <div class="phase-status status-todo">未着手</div>
+      </div>
+      <ul class="task-list">
+        <li>ローカル環境での多端末テスト</li>
+        <li class="collab">★ 実際にプレイしてバグ報告・フィードバック</li>
+        <li>バランス調整（カードパラメータ）</li>
+        <li class="collab">★ 元ゲームとの比較・違和感の指摘</li>
+        <li>パフォーマンス最適化</li>
+      </ul>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-head">
+        <div class="phase-num" style="background:#FAECE7; color:#712B13;">6</div>
+        <div class="phase-name">インフラ・公開</div>
+        <div class="phase-status status-todo">未着手</div>
+      </div>
+      <ul class="task-list">
+        <li>Oracle Cloud（東京リージョン）サーバー構築</li>
+        <li>ドメイン・SSL 設定</li>
+        <li>Android APK ビルド・配布</li>
+        <li>iOS ビルド・配布（Android 完成後）</li>
+        <li class="collab">★ Claude容量のカンパ（仕様確認・コード生成に毎週大量消費）</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="section-label">協力してもらえること（詳細）</div>
+  <div class="collab-section">
+    <div class="collab-row">
+      <div class="collab-icon" style="background:#EEEDFE;">🎨</div>
+      <div>
+        <div class="collab-type">キャラクターグラフィック作成</div>
+        <div class="collab-desc">カード用サムネイル・キャラ詳細画面用の立ち絵・タイトル画面用イラスト。元ゲームの雰囲気を参考に新規作成。</div>
+      </div>
+    </div>
+    <div class="collab-row">
+      <div class="collab-icon" style="background:#E6F1FB;">✂️</div>
+      <div>
+        <div class="collab-type">スクリーンショットからの素材切り出し</div>
+        <div class="collab-desc">元ゲームのスクショからUIパーツ・ボタン・背景などを切り出してPNG化。透過処理なども含む。</div>
+      </div>
+    </div>
+    <div class="collab-row">
+      <div class="collab-icon" style="background:#E1F5EE;">📹</div>
+      <div>
+        <div class="collab-type">動画・過去情報からの仕様確認</div>
+        <div class="collab-desc">プレイ動画や過去のゲーム情報からカードのパラメータ・挙動・演出などを調べて共有。</div>
+      </div>
+    </div>
+    <div class="collab-row">
+      <div class="collab-icon" style="background:#FAEEDA;">🎮</div>
+      <div>
+        <div class="collab-type">テストプレイ・フィードバック</div>
+        <div class="collab-desc">動作版が完成したら実際に遊んでバグ報告・元ゲームとの違いの指摘・バランス感のフィードバック。</div>
+      </div>
+    </div>
+    <div class="collab-row">
+      <div class="collab-icon" style="background:#FCEBEB;">💳</div>
+      <div>
+        <div class="collab-type">Claude 利用枠のカンパ</div>
+        <div class="collab-desc">仕様書作成・コード生成・エラー解決に毎週Claudeを大量使用。週のリセットサイクルに合わせてフル活用しているため、容量追加のサポートがあると大変助かる。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">確定している技術仕様（主要ポイント）</div>
+  <div class="full-card">
+    <div class="spec-grid">
+      <div><div class="spec-label">フィールド</div><div class="spec-val">28×12タイル、橋3本（各2×2）</div></div>
+      <div><div class="spec-label">カード構成</div><div class="spec-val">8枚デッキ / 手札4枚 + 待機1枚</div></div>
+      <div><div class="spec-label">エリクサー</div><div class="spec-val">3秒で1回復、残り1分で2倍</div></div>
+      <div><div class="spec-label">サブタワー破壊</div><div class="spec-val">1本目+50pt、2本目+150pt（計200pt）</div></div>
+      <div><div class="spec-label">通信方式</div><div class="spec-val">WebSocket、200ms間隔でstate配信</div></div>
+      <div><div class="spec-label">カードデータ</div><div class="spec-val">ログイン時にサーバーから取得（バランス調整可能）</div></div>
+    </div>
+  </div>
+
+  <p class="caption">★ マークの作業が協力者にお願いしたい部分です。特にグラフィック作成とテストプレイは大きな助けになります。</p>
+
+</div>
+</body>
+</html>
