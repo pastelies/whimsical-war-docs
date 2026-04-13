@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ウィムジカルウォー復活プロジェクト｜資金報告</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink: #1c1b18;
+    --paper: #f7f5f0;
+    --paper-dark: #edeae2;
+    --rule: #d4cfc3;
+    --accent: #2a5c8a;
+    --accent-light: #dce9f4;
+    --green: #1a6645;
+    --green-light: #d8f0e5;
+    --amber: #8a4f00;
+    --amber-light: #faecd8;
+    --muted: #7a7670;
+    --serif: 'Noto Serif JP', serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  /* 和紙テクスチャ的な背景 */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 31px,
+        var(--rule) 31px,
+        var(--rule) 32px
+      );
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+  }
+
+  /* ヘッダー */
+  .header {
+    border-left: 3px solid var(--accent);
+    padding-left: 1.25rem;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .header-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .header-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  .header-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 0.3rem;
+    font-weight: 300;
+  }
+
+  /* セクション */
+  .section {
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .section:nth-child(2) { animation-delay: 0.08s; }
+  .section:nth-child(3) { animation-delay: 0.16s; }
+  .section:nth-child(4) { animation-delay: 0.24s; }
+  .section:nth-child(5) { animation-delay: 0.32s; }
+  .section:nth-child(6) { animation-delay: 0.40s; }
+
+  .section-title {
+    font-size: 11px;
+    font-family: var(--mono);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* 総額カード */
+  .total-card {
+    background: var(--accent);
+    color: white;
+    border-radius: 8px;
+    padding: 1.75rem 2rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .total-label {
+    font-size: 13px;
+    font-weight: 300;
+    opacity: 0.8;
+    letter-spacing: 0.05em;
+  }
+
+  .total-amount {
+    font-family: var(--mono);
+    font-size: 44px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .total-note {
+    font-size: 11px;
+    opacity: 0.65;
+    font-weight: 300;
+    margin-top: 0.5rem;
+    font-family: var(--mono);
+  }
+
+  /* 収支テーブル */
+  .ledger {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .ledger tr {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .ledger tr:first-child {
+    border-top: 1px solid var(--rule);
+  }
+
+  .ledger td {
+    padding: 0.85rem 0.5rem;
+    font-size: 14px;
+    vertical-align: top;
+  }
+
+  .ledger .col-label {
+    color: var(--ink);
+    font-weight: 400;
+    width: 55%;
+  }
+
+  .ledger .col-label small {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 300;
+    margin-top: 2px;
+  }
+
+  .ledger .col-amount {
+    font-family: var(--mono);
+    font-size: 15px;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .ledger .col-tag {
+    width: 70px;
+    text-align: right;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-family: var(--mono);
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .tag-in { background: var(--green-light); color: var(--green); }
+  .tag-out { background: var(--amber-light); color: var(--amber); }
+  .tag-remain { background: var(--accent-light); color: var(--accent); }
+
+  .ledger .row-total td {
+    font-weight: 600;
+    border-top: 2px solid var(--ink);
+    border-bottom: none;
+    padding-top: 1rem;
+  }
+
+  /* 残高の使途 */
+  .usage-list {
+    list-style: none;
+  }
+
+  .usage-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: flex-start;
+  }
+
+  .usage-item:first-child {
+    border-top: 1px solid var(--rule);
+  }
+
+  .usage-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    padding-top: 3px;
+    flex-shrink: 0;
+    width: 24px;
+  }
+
+  .usage-body {}
+
+  .usage-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+
+  .usage-desc {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* サーバー節約メモ */
+  .note-box {
+    background: var(--paper-dark);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  .note-box strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* お礼 */
+  .thanks {
+    border-left: 3px solid var(--green);
+    padding: 1rem 1.25rem;
+    background: var(--green-light);
+    border-radius: 0 6px 6px 0;
+    font-size: 13.5px;
+    color: var(--green);
+    font-weight: 300;
+    line-height: 1.9;
+  }
+
+  /* フッター */
+  .footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 500px) {
+    .total-amount { font-size: 34px; }
+    .wrap { padding: 2rem 1.25rem 4rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="header-label">Fund Report · 2025</div>
+    <div class="header-title">ウィムジカルウォー復活プロジェクト<br>資金報告書</div>
+    <div class="header-sub">カンパ総額・使途・残高の内訳</div>
+  </div>
+
+  <!-- お礼 -->
+  <div class="section">
+    <div class="thanks">
+      みなさんのご支援のおかげで、開発を本格的に進めることができています。<br>
+      個人の内訳は非公開とさせていただきますが、使途については透明性を持ってご報告します。<br>
+      本当にありがとうございます。
+    </div>
+  </div>
+
+  <!-- カンパ総額 -->
+  <div class="section">
+    <div class="section-title">カンパ総額</div>
+    <div class="total-card">
+      <div>
+        <div class="total-label">ご支援いただいた合計金額</div>
+        <div class="total-note">※ 個人の内訳は非公開</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="total-amount">¥45,500</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 収支明細 -->
+  <div class="section">
+    <div class="section-title">収支明細</div>
+    <table class="ledger">
+      <tr>
+        <td class="col-label">
+          カンパ受領
+          <small>有志のみなさまより</small>
+        </td>
+        <td class="col-tag"><span class="tag tag-in">収入</span></td>
+        <td class="col-amount">＋¥45,500</td>
+      </tr>
+      <tr>
+        <td class="col-label">
+          Claude Max アップグレード
+          <small>開発支援AI・仕様策定・コード生成に使用（$110 相当）</small>
+        </td>
+        <td class="col-tag"><span class="tag tag-out">支出</span></td>
+        <td class="col-amount">－¥17,500</td>
+      </tr>
+      <tr class="row-total">
+        <td class="col-label">現在の残高</td>
+        <td class="col-tag"><span class="tag tag-remain">残高</span></td>
+        <td class="col-amount">¥28,000</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 残高の使途予定 -->
+  <div class="section">
+    <div class="section-title">残高の使途予定</div>
+    <ul class="usage-list">
+      <li class="usage-item">
+        <div class="usage-num">01</div>
+        <div class="usage-body">
+          <div class="usage-title">開発継続の場合：Claude Max 延長</div>
+          <div class="usage-desc">
+            1ヶ月で完成しなかった場合、翌月分の Claude Max（約¥17,500）に充てる予定です。
+            仕様策定・コード生成・バグ解析のすべてに Claude を使っており、Proでは容量が足りないため継続が必要です。
+          </div>
+        </div>
+      </li>
+      <li class="usage-item">
+        <div class="usage-num">02</div>
+        <div class="usage-body">
+          <div class="usage-title">完成後：Claude Pro でメンテナンス継続</div>
+          <div class="usage-desc">
+            ゲームリリース後のバグ修正・機能追加対応のため、Claude Pro（月額約¥3,000）に切り替えて継続課金する想定です。残高はその費用に充てます。
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- サーバー費用について -->
+  <div class="section">
+    <div class="section-title">サーバー費用について</div>
+    <div class="note-box">
+      <strong>Oracle Cloud 無料枠で運用予定のため、サーバー代は現時点で発生しません。</strong><br>
+      同時接続8人・登録20人程度の規模であれば、Always Free インスタンス（CPU 4コア・メモリ 24GB）で十分に対応できます。<br>
+      有料サーバへの移行が必要になった際は、改めてご相談させてください。
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>WHIMSICAL WAR REVIVAL PROJECT</span>
+    <span>FUND REPORT · PRIVATE DOCUMENT</span>
+  </div>
+
+</div>
+</body>
+</html>
